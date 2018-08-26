@@ -1,14 +1,92 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Anciens Combattants
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="getstart">
+	<ion-item>
+		<ion-label color="primary" fixed>Entrez votre recherche ( Nom/prenom ) :  </ion-label>
+    <ion-input [(ngModel)]="search" (ionChange)='researchName()' placeholder="Nom ou prenom"></ion-input>
+  </ion-item>
+  <ion-item >      
+    <ion-label>Defilement automatique</ion-label>
+    <ion-checkbox [(ngModel)]="auto" (ionChange)="changeAuto()"></ion-checkbox>
+  </ion-item>
+ <div *ngIf="showList">
+  <ion-row>
+    <ion-col>
+      <strong>Nom</strong>
+    </ion-col>
+    <ion-col>
+      <strong>Prenom</strong>
+    </ion-col>
+  </ion-row>
+   <ion-row *ngFor="let figther of figtherDisplayed" (click)='showFighter(figther)'>
+    <ion-col>
+      {{figther.firstName}}
+    </ion-col>
+    <ion-col>
+      {{figther.lastName}}
+    </ion-col>
+   </ion-row>
+  </div>
+
+  <div text-center *ngIf="selectedFighter!= null">
+    <strong>{{selectedFighter.firstName + ' ' + selectedFighter.lastName }}</strong>
+
+    <div>
+        {{selectedFighter.description}}
+    </div>
+    <ion-slides  #Slides *ngIf="selectedFighter.images != null" autoplay="10000" loop="true" speed="500">
+        
+      <ion-slide *ngFor="let slide of selectedFighter.images" style="background-color: white">
+          <h2>{{ slide.title }}</h2>
+          <img [src]="slide.path">
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="row">
+    <button ion-button  (click)='backFighter()'>Precedent</button>
+    <button ion-button (click)='nextFighter()'>Suivant</button>
+  </div>  
 </ion-content>
+
+
+
+
+<!--<ion-header-bar class="bar-stable">
+  <h1 class="title">Service Provider Details</h1>
+</ion-header-bar>
+<ion-content>
+  <div class="row header">
+    <div class="col">Utility Company Name</div>
+    <div class="col">Service Code</div>
+    <div class="col">Pay Limit</div>
+    <div class="col">Account Number to Use</div>
+    <div class="col"></div>
+  </div>
+  <div class="row" ng-repeat="data in ctrl.data">
+    <div class="col">{{data.}}</div>
+    <div class="col">{{data.code}}</div>
+    <div class="col">LK {{data.limit}}</div>
+    <div class="col">{{data.account}}</div>
+    <div class="col"><button class="button" ng-click="ctrl.add($index)">Add</button></div>
+  </div>
+</ion-content>| 
+
+<ion-grid no-padding class="home-gallery">
+    <ion-row>
+        <ion-col col-4 *ngFor="let item of items | async">
+          <div class="products_list">
+            <div class="products_list_img">
+                <img [src]="item.previewImage" (click)="showItem($event, item)"/>
+            </div>    
+        </div>
+    </ion-col>
+</ion-row>
+</ion-grid>
+ <!-- Header -->
