@@ -54,7 +54,7 @@ export class HomePage {
     this.showList = true;
     this.figtherDisplayed = [];
     this.allFighter = [] ;   
-    let path = 'data.json';
+    let path = 'assets/data.json';
     let encodedPath = encodeURI(path);
     let timeoutMS = 10000;
     //var rgxp = new RegExp(this.search.toUpperCase()+".*", "g");
